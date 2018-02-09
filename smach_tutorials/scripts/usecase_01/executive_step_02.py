@@ -14,13 +14,13 @@ Output:
 
 """
 
-import roslib; roslib.load_manifest('smach_tutorials')
+# import roslib; roslib.load_manifest('smach_tutorials') use on rosbuild
 import rospy
 
 import threading
 
 import smach
-from smach import StateMachine, ServiceState, SimpleActionState
+from smach_ros import ServiceState, SimpleActionState
 
 import std_srvs.srv
 import turtlesim.srv
@@ -29,17 +29,17 @@ def main():
     rospy.init_node('smach_usecase_step_02')
 
     # Create a SMACH state machine
-    sm0 = StateMachine(outcomes=['succeeded','aborted','preempted'])
+    sm0 = smach.StateMachine(outcomes=['succeeded','aborted','preempted'])
 
     # Open the container
     with sm0:
         # Reset turtlesim
-        StateMachine.add('RESET',
+        smach.StateMachine.add('RESET',
                 ServiceState('reset', std_srvs.srv.Empty),
                 {'succeeded':'SPAWN'})
 
         # Create a second turtle
-        StateMachine.add('SPAWN',
+        smach.StateMachine.add('SPAWN',
                 ServiceState('spawn', turtlesim.srv.Spawn,
                     request = turtlesim.srv.SpawnRequest(0.0,0.0,0.0,'turtle2')))
 

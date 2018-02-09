@@ -23,18 +23,18 @@ Output:
     [INFO] : State machine terminating 'DRAW_SHAPES':'succeeded':'succeeded'
 """
 
-import roslib; roslib.load_manifest('smach_tutorials')
+# import roslib; roslib.load_manifest('smach_tutorials')
 import rospy
 
 import threading
 
-import smach
-from smach import StateMachine, ServiceState, SimpleActionState, IntrospectionServer, Concurrence
+from smach import StateMachine, Concurrence
+from smach_ros import ServiceState, SimpleActionState, IntrospectionServer
 
 import std_srvs.srv
 import turtlesim.srv
 import turtle_actionlib.msg
-
+from smach_ros import util
 
 def main():
     rospy.init_node('smach_usecase_step_05')
@@ -94,7 +94,7 @@ def main():
     sis.start()
 
     # Set preempt handler
-    smach.set_preempt_handler(sm0)
+    util.set_preempt_handler(sm0)
 
     # Execute SMACH tree in a separate thread so that we can ctrl-c the script
     smach_thread = threading.Thread(target = sm0.execute)

@@ -4,7 +4,7 @@ Description:
 
 Usage:
     $> roslaunch turtle_nodes.launch
-    $> ./executive_step_02.py
+    $> ./executive_step_03.py
 
 Output:
     [INFO] : State machine starting in initial state 'RESET' with userdata: 
@@ -14,19 +14,19 @@ Output:
 
 """
 
-import roslib; roslib.load_manifest('smach_tutorials')
+# import roslib; roslib.load_manifest('smach_tutorials')
 import rospy
 
 import threading
 
-import smach
-from smach import StateMachine, ServiceState, SimpleActionState, IntrospectionServer
+from smach import StateMachine
+from smach_ros import ServiceState, SimpleActionState, IntrospectionServer
 
 import std_srvs.srv
 import turtlesim.srv
 
 def main():
-    rospy.init_node('smach_usecase_step_02')
+    rospy.init_node('smach_usecase_step_03')
 
     # Create a SMACH state machine
     sm0 = StateMachine(outcomes=['succeeded','aborted','preempted'])
